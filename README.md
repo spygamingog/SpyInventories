@@ -1,7 +1,7 @@
 # SpyInventories
 
 [![Platform](https://img.shields.io/badge/platform-PaperMC%20%7C%20Spigot-blue)](https://papermc.io)
-[![Version](https://img.shields.io/badge/minecraft-1.21.1-green)](https://www.minecraft.net)
+[![Version](https://img.shields.io/badge/minecraft-1.21.11-green)](https://www.minecraft.net)
 [![Dependency](https://img.shields.io/badge/dependency-SpyCore-red)](https://modrinth.com/plugin/spycore)
 
 **SpyInventories** provides advanced cross-world inventory management for servers using the **SpyCore** ecosystem. It allows server owners to group worlds together, sharing or separating player data based on world groups.
