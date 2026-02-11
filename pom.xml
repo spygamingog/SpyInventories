@@ -6,7 +6,7 @@
 
     <groupId>com.spygamingog</groupId>
     <artifactId>spyinventories</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>com.spygamingog</groupId>
             <artifactId>spycore</artifactId>
-            <version>1.0.6</version>
+            <version>1.0.7</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
