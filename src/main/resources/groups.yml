@@ -1,9 +1,0 @@
-# SpyInventories Groups Configuration
-# Use this file to manually group worlds that should share inventories.
-# Suffix worlds (_nether, _the_end) are grouped automatically by default.
-
-groups:
-#  example_group:
-#    worlds:
-#      - world1
-#      - world2
