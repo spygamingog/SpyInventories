@@ -2,6 +2,12 @@
 
 All notable changes to the SpyInventories project will be documented in this file.
 
+## [1.0.8] - 2026-09-05
+
+### Changed
+- **Core Dependency**: Updated to **SpyCore 1.1.1**.
+- **Dimension State Alignment**: Verified seamless gamemode and inventory preservation across linked dimensions in the same world set.
+
 ## [1.0.7] - 2026-09-04
 
 ### Changed

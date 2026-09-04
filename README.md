@@ -3,7 +3,7 @@
 [![Platform](https://img.shields.io/badge/Platform-Paper%20%2F%20Purpur-blue)](https://papermc.io)
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21%2B-green)](https://papermc.io)
 [![Java](https://img.shields.io/badge/Java-21%2B-orange)](https://www.oracle.com/java/)
-[![Core](https://img.shields.io/badge/Requires-SpyCore%201.1.0-purple)](https://github.com/spygamingog/SpyCore)
+[![Core](https://img.shields.io/badge/Requires-SpyCore%201.1.1-purple)](https://github.com/spygamingog/SpyCore)
 [![License](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-lightgrey)](LICENSE)
 
 SpyInventories is a multi-world inventory management and state-sync plugin for Paper and Purpur (1.21+). Built as a companion extension for [SpyCore](https://github.com/spygamingog/SpyCore), it isolates and manages player inventories, armor, offhand items, ender chests, health, food, potion effects, and gamemodes across different world groups.
@@ -25,9 +25,9 @@ SpyInventories is a multi-world inventory management and state-sync plugin for P
 1. **Requirements**:
    - Paper or Purpur 1.21+
    - Java 21+
-   - [SpyCore](https://github.com/spygamingog/SpyCore) 1.1.0 or newer
+   - [SpyCore](https://github.com/spygamingog/SpyCore) 1.1.1 or newer
 2. **Installation**:
-   - Put both `spycore-1.1.0.jar` and `spyinventories-1.0.7.jar` into your server's `plugins/` directory.
+   - Put both `spycore-1.1.1.jar` and `spyinventories-1.0.8.jar` into your server's `plugins/` directory.
    - Restart the server.
 
 ---
