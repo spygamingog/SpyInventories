@@ -4,7 +4,7 @@
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.21%2B-green)](https://papermc.io)
 [![Java](https://img.shields.io/badge/Java-21%2B-orange)](https://www.oracle.com/java/)
 [![Core](https://img.shields.io/badge/Requires-SpyCore%201.1.0-purple)](https://github.com/spygamingog/SpyCore)
-[![License](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
+[![License](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-lightgrey)](LICENSE)
 
 SpyInventories is a multi-world inventory management and state-sync plugin for Paper and Purpur (1.21+). Built as a companion extension for [SpyCore](https://github.com/spygamingog/SpyCore), it isolates and manages player inventories, armor, offhand items, ender chests, health, food, potion effects, and gamemodes across different world groups.
 
@@ -67,4 +67,4 @@ Player data is stored per-player in `plugins/SpyInventories/players/<UUID>/<grou
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)](LICENSE).
