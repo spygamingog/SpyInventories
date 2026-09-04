@@ -9,14 +9,14 @@ public class WorldUtils {
     public static String getBaseWorldName(String worldName) {
         if (worldName == null) return null;
         
-        String base = worldName;
-        if (base.endsWith("_nether")) {
-            base = base.substring(0, base.length() - 7);
-        } else if (base.endsWith("_the_end")) {
-            base = base.substring(0, base.length() - 8);
+        String lower = worldName.toLowerCase();
+        if (lower.endsWith("_nether")) {
+            return worldName.substring(0, worldName.length() - 7);
+        } else if (lower.endsWith("_the_end")) {
+            return worldName.substring(0, worldName.length() - 8);
         }
         
-        return base;
+        return worldName;
     }
 
     /**

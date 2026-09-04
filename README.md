@@ -1,24 +1,70 @@
 # SpyInventories
 
-[![Platform](https://img.shields.io/badge/platform-PaperMC%20%7C%20Spigot-blue)](https://papermc.io)
-[![Version](https://img.shields.io/badge/minecraft-1.21.11-green)](https://www.minecraft.net)
-[![Dependency](https://img.shields.io/badge/dependency-SpyCore-red)](https://modrinth.com/plugin/spycore)
+[![Platform](https://img.shields.io/badge/Platform-Paper%20%2F%20Purpur-blue)](https://papermc.io)
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.21%2B-green)](https://papermc.io)
+[![Java](https://img.shields.io/badge/Java-21%2B-orange)](https://www.oracle.com/java/)
+[![Core](https://img.shields.io/badge/Requires-SpyCore%201.1.0-purple)](https://github.com/spygamingog/SpyCore)
+[![License](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
 
-**SpyInventories** provides advanced cross-world inventory management for servers using the **SpyCore** ecosystem. It allows server owners to group worlds together, sharing or separating player data based on world groups.
-
-## ✨ Features
-
-- **🌐 World Grouping**: Define groups of worlds that share the same player data.
-- **🔄 Full Data Sync**: Syncs Inventories, Ender Chests, Health, Hunger, Potion Effects, and Experience.
-- **⚡ Async Operations**: Saves player data without blocking the main server thread.
-- **🛠️ SpyCore Native**: Automatically handles worlds in containers and aliases.
-
-## 🛠️ Installation
-
-1. Ensure **SpyCore** is installed on your server.
-2. Download the latest `SpyInventories.jar`.
-3. Place it in your server's `plugins/` folder.
-4. Restart the server.
+SpyInventories is a multi-world inventory management and state-sync plugin for Paper and Purpur (1.21+). Built as a companion extension for [SpyCore](https://github.com/spygamingog/SpyCore), it isolates and manages player inventories, armor, offhand items, ender chests, health, food, potion effects, and gamemodes across different world groups.
 
 ---
-*Developed by SpyGamingOG*
+
+## Features
+
+- **World Grouping**: Group worlds together so they share inventory data. For example, `survival`, `survival_nether`, and `survival_the_end` can share one inventory, while `creative` or `minigames` are kept completely separate.
+- **Full State Separation**: Manages inventory slots, armor, offhand, ender chest, health, food levels, active potion effects, and gamemodes.
+- **Clean First-Time Joins**: When a player enters a new world group for the first time without prior data, their inventory and effects are cleanly cleared to prevent item bleeding or duplication.
+- **Asynchronous Saving**: Player inventory files are saved asynchronously to prevent main-thread lag spikes when players switch worlds or disconnect.
+- **Automatic SpyCore Handoff**: When SpyInventories is installed alongside SpyCore, SpyCore automatically hands off its internal inventory handler to SpyInventories to prevent double-loading or conflicting saves.
+
+---
+
+## Requirements & Installation
+
+1. **Requirements**:
+   - Paper or Purpur 1.21+
+   - Java 21+
+   - [SpyCore](https://github.com/spygamingog/SpyCore) 1.1.0 or newer
+2. **Installation**:
+   - Put both `spycore-1.1.0.jar` and `spyinventories-1.0.7.jar` into your server's `plugins/` directory.
+   - Restart the server.
+
+---
+
+## Configuration
+
+World groups are configured in `plugins/SpyInventories/config.yml`.
+
+Worlds listed in the same group share the same inventory pool. Dimensions following standard naming (`_nether` and `_the_end`) are handled automatically:
+
+```yaml
+groups:
+  survival:
+    worlds:
+      - survival
+      - survival_nether
+      - survival_the_end
+  creative:
+    worlds:
+      - creative
+  minigames:
+    worlds:
+      - bedwars
+      - skywars
+```
+
+Player data is stored per-player in `plugins/SpyInventories/players/<UUID>/<group>.yml`.
+
+---
+
+## Sibling Plugins
+
+- **[SpyCore](https://github.com/spygamingog/SpyCore)**: Multi-world management engine and VFS container system.
+- **[SpyNetherPortals](https://github.com/spygamingog/SpyNetherPortals)**: Custom Nether and End portal routing for multi-world setups.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).

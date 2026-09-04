@@ -1,0 +1,13 @@
+# SpyInventories Configuration
+
+# Worlds to ignore for inventory saving/loading.
+# Use the world alias (the "real" name represented in SpyCore).
+# If a world is in this list, no inventory data will be saved or loaded for it.
+ignored-worlds: []
+
+# Suffixes to ignore for inventory saving/loading.
+# These are checked against the world alias.
+# By default, worlds with these strings in their alias are ignored.
+ignored-suffixes:
+  - "match_"
+  - "temp_"

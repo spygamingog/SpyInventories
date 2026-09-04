@@ -2,22 +2,26 @@ package com.spygamingog.spyinventories;
 
 import com.spygamingog.spyinventories.listeners.InventoryListener;
 import com.spygamingog.spyinventories.managers.GroupManager;
-import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.File;
 
 public class SpyInventories extends JavaPlugin {
 
-    @Getter
     private static SpyInventories instance;
-
-    @Getter
     private GroupManager groupManager;
+
+    public static SpyInventories getInstance() {
+        return instance;
+    }
+
+    public GroupManager getGroupManager() {
+        return groupManager;
+    }
 
     @Override
     public void onEnable() {
         instance = this;
+        
+        saveDefaultConfig();
         
         // Create data folder
         if (!getDataFolder().exists()) {
@@ -28,13 +32,13 @@ public class SpyInventories extends JavaPlugin {
         this.groupManager = new GroupManager(this);
 
         // Register listeners
-        // getServer().getPluginManager().registerEvents(new InventoryListener(), this);
+        getServer().getPluginManager().registerEvents(new InventoryListener(this), this);
 
-        getLogger().info("SpyInventories v1.0.3 enabled!");
+        getLogger().info("SpyInventories v" + getDescription().getVersion() + " enabled!");
     }
 
     @Override
     public void onDisable() {
-        getLogger().info("SpyInventories v1.0.3 disabled!");
+        getLogger().info("SpyInventories v" + getDescription().getVersion() + " disabled!");
     }
 }
