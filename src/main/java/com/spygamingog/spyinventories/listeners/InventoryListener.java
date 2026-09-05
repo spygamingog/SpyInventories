@@ -61,8 +61,8 @@ public class InventoryListener implements Listener {
         World from = event.getFrom();
         World to = player.getWorld();
 
-        String fromGroup = plugin.getGroupManager().getInventoryGroup(from.getName());
-        String toGroup = plugin.getGroupManager().getInventoryGroup(to.getName());
+        String fromGroup = plugin.getGroupManager().getInventoryGroup(from);
+        String toGroup = plugin.getGroupManager().getInventoryGroup(to);
 
         // If they changed to a world in a different inventory group
         if (!fromGroup.equalsIgnoreCase(toGroup)) {
@@ -92,7 +92,7 @@ public class InventoryListener implements Listener {
             return;
         }
         
-        String group = plugin.getGroupManager().getInventoryGroup(world.getName());
+        String group = plugin.getGroupManager().getInventoryGroup(world);
         loadPlayerData(player, group);
     }
 
@@ -106,7 +106,7 @@ public class InventoryListener implements Listener {
             return;
         }
         
-        String group = plugin.getGroupManager().getInventoryGroup(world.getName());
+        String group = plugin.getGroupManager().getInventoryGroup(world);
         
         // Ensure data folder exists before saving
         File playerDir = new File(plugin.getDataFolder(), "players" + File.separator + player.getUniqueId());
@@ -158,6 +158,23 @@ public class InventoryListener implements Listener {
         File file = new File(playerDir, fileName);
         
         if (!file.exists()) {
+            // Check for legacy inventory file from SpyCore
+            org.bukkit.plugin.Plugin spyCore = Bukkit.getPluginManager().getPlugin("SpyCore");
+            if (spyCore != null) {
+                File legacyFile = new File(spyCore.getDataFolder(), "players" + File.separator + player.getUniqueId() + File.separator + fileName);
+                if (legacyFile.exists()) {
+                    try {
+                        if (!playerDir.exists()) playerDir.mkdirs();
+                        java.nio.file.Files.copy(legacyFile.toPath(), file.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                        plugin.getLogger().info("Migrated legacy inventory for " + player.getName() + " (" + groupName + ") from SpyCore.");
+                    } catch (IOException e) {
+                        plugin.getLogger().warning("Failed to migrate legacy SpyCore inventory for " + player.getName() + ": " + e.getMessage());
+                    }
+                }
+            }
+        }
+
+        if (!file.exists()) {
             // New player or first time in this group, clear inventory
             clearPlayerData(player);
             return;
@@ -193,7 +210,11 @@ public class InventoryListener implements Listener {
             // Load stats
             player.setExp((float) config.getDouble("exp", 0));
             player.setLevel(config.getInt("level", 0));
-            player.setHealth(config.getDouble("health", 20));
+            double maxHealth = 20.0;
+            if (player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH) != null) {
+                maxHealth = player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH).getValue();
+            }
+            player.setHealth(Math.min(maxHealth, Math.max(1.0, config.getDouble("health", 20.0))));
             player.setFoodLevel(config.getInt("food", 20));
 
             // Load gamemode
@@ -205,8 +226,11 @@ public class InventoryListener implements Listener {
                 player.setGameMode(GameMode.SURVIVAL);
             }
 
-            // Load potion effects
+            // Load potion effects (supports both potion-effects and legacy potion_effects key)
             Collection<PotionEffect> effects = (Collection<PotionEffect>) config.get("potion-effects");
+            if (effects == null) {
+                effects = (Collection<PotionEffect>) config.get("potion_effects");
+            }
             for (PotionEffect effect : player.getActivePotionEffects()) {
                 player.removePotionEffect(effect.getType());
             }
@@ -231,7 +255,11 @@ public class InventoryListener implements Listener {
         player.getEnderChest().clear();
         player.setExp(0);
         player.setLevel(0);
-        player.setHealth(20);
+        double maxHealth = 20.0;
+        if (player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH) != null) {
+            maxHealth = player.getAttribute(org.bukkit.attribute.Attribute.GENERIC_MAX_HEALTH).getValue();
+        }
+        player.setHealth(maxHealth);
         player.setFoodLevel(20);
         player.setGameMode(GameMode.SURVIVAL);
         for (PotionEffect effect : player.getActivePotionEffects()) {

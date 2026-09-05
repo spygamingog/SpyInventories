@@ -2,6 +2,18 @@
 
 All notable changes to the SpyInventories project will be documented in this file.
 
+## [1.0.9] - 2026-09-06
+
+### Added
+- **Zero-Loss Legacy Auto-Migration**: Added automatic detection and migration of legacy SpyCore inventory files (`plugins/SpyCore/players/<UUID>/<group>.yml`) when player data is loaded.
+- **Alias-Aware Group Resolution**: `GroupManager` now resolves world aliases via `SpyAPI.getAliasForWorld(world)` for seamless container world grouping support.
+- **Inherited Base Dimension Grouping**: Dimensional worlds (`_nether`, `_the_end`) now automatically inherit any custom group assigned to their base world in `groups.yml`.
+- **Potion Effect Key Compatibility**: Supports loading potion effects stored under both `potion-effects` and legacy `potion_effects`.
+
+### Changed
+- **Authoritative Inventory Manager**: Promoted to sole authoritative multi-world inventory manager for the SpyCore ecosystem.
+- **Core Dependency**: Updated to **SpyCore 1.1.2**.
+
 ## [1.0.8] - 2026-09-05
 
 ### Changed

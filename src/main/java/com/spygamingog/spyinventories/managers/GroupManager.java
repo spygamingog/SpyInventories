@@ -1,7 +1,9 @@
 package com.spygamingog.spyinventories.managers;
 
+import com.spygamingog.spycore.api.SpyAPI;
 import com.spygamingog.spyinventories.SpyInventories;
 import com.spygamingog.spyinventories.utils.WorldUtils;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -38,17 +40,35 @@ public class GroupManager {
         }
     }
 
+    public String getInventoryGroup(World world) {
+        if (world == null) return "default";
+        try {
+            String alias = SpyAPI.getAliasForWorld(world);
+            if (alias != null && !alias.isEmpty()) {
+                return getInventoryGroup(alias);
+            }
+        } catch (Throwable ignored) {}
+        return getInventoryGroup(world.getName());
+    }
+
     public String getInventoryGroup(String worldName) {
         if (worldName == null) return "default";
         
-        // 1. Check for manual group assignment
+        // 1. Check for direct manual group assignment
         String manualGroup = worldToGroup.get(worldName.toLowerCase());
         if (manualGroup != null) {
             return manualGroup;
         }
 
-        // 2. Fallback to automatic suffix grouping (_nether, _the_end)
-        return WorldUtils.getBaseWorldName(worldName);
+        // 2. Check base world manual group (so _nether and _the_end inherit base world's configured group)
+        String baseName = WorldUtils.getBaseWorldName(worldName);
+        String baseGroup = worldToGroup.get(baseName.toLowerCase());
+        if (baseGroup != null) {
+            return baseGroup;
+        }
+
+        // 3. Fallback to automatic suffix grouping (_nether, _the_end base name)
+        return baseName;
     }
 
     public void addWorldToGroup(String worldName, String groupName) {
